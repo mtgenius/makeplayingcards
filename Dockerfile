@@ -3,7 +3,7 @@ LABEL Author "Charles Stover <docker@charlesstover.com>"
 
 # Dependencies
 RUN apt-get update
-RUN apt-get install -y libpng-dev
+RUN apt-get install -y libjpeg-dev libpng-dev
 
 # Remove Unused Files
 RUN rm -rf /etc/apache2/conf-available
@@ -13,6 +13,7 @@ RUN rm -rf /etc/apache2/sites-available
 RUN rm -rf /etc/apache2/sites-enabled
 
 # Configure PHP
+RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/
 RUN docker-php-ext-install gd
 
 # Configure Apache

@@ -5,32 +5,39 @@ if (array_key_exists('multiverseid', $_GET)) {
   $url = 'https://api.scryfall.com/cards/multiverse/' . $_GET['multiverseid'] . '?format=image&version=png';
 }
 else if (array_key_exists('url', $_GET)) {
-  $url = 'https://img.scryfall.com/cards/png/en/' . $_GET['url'] . '.png';
+  if (preg_match('/^https?\:\/\//', $_GET['url'])) {
+    $url = $_GET['url'];
+  }
+  else {
+    $url = 'https://img.scryfall.com/cards/png/en/' . $_GET['url'] . '.png';
+  }
 }
 
 if (!$url) {
   exit('Cannot find URL.');
 }
 
-header('Content-Type: image/png; charset=utf-8');
+$inner_height = 1040;
+$inner_width = 745;
+$outer_height = 1110;
+$outer_width = 816;
+
 $old_image_string = file_get_contents($url);
 
-$old_height = 1040;
-$old_width = 745;
 $old_image = imagecreatefromstring($old_image_string);
+list($old_width, $old_height) = getimagesizefromstring($old_image_string);
 
 $border_color = imagecolorat($old_image, 0, 520);
 
-$new_height = 1110;
-$new_width = 816;
-$new_image = imagecreatetruecolor($new_width, $new_height);
+$new_image = imagecreatetruecolor($outer_width, $outer_height);
 imagefill($new_image, 0, 0, $border_color);
 
 imagecopyresampled(
   $new_image, $old_image,
-  round(($new_width - $old_width) / 2), round(($new_height - $old_height) / 2),
+  round(($outer_width - $inner_width) / 2),
+  round(($outer_height - $inner_height) / 2),
   0, 0,
-  $old_width, $old_height,
+  $inner_width, $inner_height,
   $old_width, $old_height
 );
 
@@ -44,12 +51,13 @@ $box =
 if ($box !== null) {
   imagefilledrectangle(
     $new_image,
-    $new_width - $box[0], $new_height - $box[1],
-    $new_width, $new_height,
+    $outer_width - $box[0], $outer_height - $box[1],
+    $outer_width, $outer_height,
     $border_color
   );
 }
 
+header('Content-Type: image/png; charset=utf-8');
 imagepng($new_image);
 
 ?>
