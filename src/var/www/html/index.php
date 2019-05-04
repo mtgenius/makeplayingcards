@@ -57,6 +57,27 @@ if ($box !== null) {
   );
 }
 
+// Top Left Corner
+imagefilledrectangle(
+  $new_image,
+  36, 35, 36 + 27, 35 + 26,
+  $border_color
+);
+
+// Top Right Corner
+imagefilledrectangle(
+  $new_image,
+  755, 35, 755 + 26, 35 + 27,
+  $border_color
+);
+
+// Bottom Left Corner
+imagefilledrectangle(
+  $new_image,
+  36, 1048, 36 + 26, 1075,
+  $border_color
+);
+
 header('Content-Type: image/png; charset=utf-8');
 imagepng($new_image);
 

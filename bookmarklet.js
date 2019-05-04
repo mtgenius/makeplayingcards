@@ -3,17 +3,18 @@ javascript:
 if (location.host === 'scryfall.com') {
 
   var isCreature =
-    document
-      .getElementsByClassName('card-text-type-line')
-      .item(0)
-      .innerText
-      .match(/Creature/) !== null;
+    /(Creature|Planeswalker)/.test(
+      document
+        .getElementsByClassName('card-text-type-line')
+        .item(0)
+        .innerText
+    );
 
   var url =
     'url=' +
-    location.pathname
-      .match(/\/card\/([^/]+\/[^/]+)\//)[1];
-
+      document.getElementsByClassName('card-image-front').item(0)
+        .getElementsByTagName('img').item(0)
+        .getAttribute('src');
 }
 else {
 
