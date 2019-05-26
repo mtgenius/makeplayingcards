@@ -78,6 +78,13 @@ imagefilledrectangle(
   $border_color
 );
 
+// Bottom Right Corner
+imagefilledrectangle(
+  $new_image,
+  755, 1048, 755 + 26, 1075,
+  $border_color
+);
+
 header('Content-Type: image/png; charset=utf-8');
 imagepng($new_image);
 

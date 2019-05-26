@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule .* makeplayingcards.php [L,NC]
