@@ -16,3 +16,9 @@ named `makeplayingcards` on the `reverse-proxy` network.
 - `yarn run` runs the Docker container.
 - `yarn rm` removes the existing Docker container.
 - `yarn stop` stops the existing Docker container.
+
+## Sponsor
+
+If you are a fan of this project, you may
+[become a sponsor](https://github.com/sponsors/CharlesStover)
+via GitHub's Sponsors Program.
