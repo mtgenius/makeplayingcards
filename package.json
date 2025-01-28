@@ -2,7 +2,7 @@
   "scripts": {
     "build": "docker build -t mtgenius/makeplayingcards .",
     "build-run": "npm run build && npm run stop && npm run rm && npm run run",
-    "run": "docker run --detach --name makeplayingcards --network reverse-proxy --restart always mtgenius/makeplayingcards",
+    "run": "docker run --detach --name makeplayingcards --restart always mtgenius/makeplayingcards",
     "rm": "docker rm makeplayingcards",
     "stop": "docker stop makeplayingcards"
   }
